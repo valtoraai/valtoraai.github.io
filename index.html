@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ValtoraAI – Coming Soon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="ValtoraAI – Autonomous AI Cyber Defense. Security at AI speed.">
+  <style>
+    :root {
+      --bg: #050815;
+      --card: rgba(10, 16, 35, 0.9);
+      --accent: #4ab2ff;
+      --accent-soft: rgba(74, 178, 255, 0.35);
+      --text-main: #f5f7ff;
+      --text-muted: #9aa3c6;
+      --border-subtle: rgba(255, 255, 255, 0.07);
+      --radius-lg: 20px;
+      --shadow-soft: 0 0 60px rgba(74, 178, 255, 0.25);
+      --shadow-subtle: 0 18px 45px rgba(0, 0, 0, 0.55);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                   "Inter", "Segoe UI", sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #101935 0, #050815 55%, #02030a 100%);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .glow-orb {
+      position: fixed;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-soft) 0, transparent 70%);
+      top: -160px;
+      right: -80px;
+      filter: blur(4px);
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.12;
+      background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+      mix-blend-mode: soft-light;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, rgba(12, 18, 40, 0.96), rgba(5, 9, 25, 0.96));
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-subtle), var(--shadow-soft);
+      padding: 32px 26px 28px;
+      backdrop-filter: blur(24px);
+    }
+
+    @media (min-width: 768px) {
+      .card {
+        padding: 40px 42px 36px;
+      }
+    }
+
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background:
+        radial-gradient(circle at 30% 20%, #ffffff 0, transparent 40%),
+        radial-gradient(circle at 70% 80%, var(--accent) 0, transparent 55%),
+        radial-gradient(circle at 20% 80%, #7a5cff 0, transparent 55%),
+        #050814;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-main);
+      box-shadow: 0 0 25px rgba(74, 178, 255, 0.35);
+    }
+
+    .brand-text-main {
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .brand-text-sub {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    .tag-pill {
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: radial-gradient(circle at top left, rgba(74, 178, 255, 0.2), transparent 65%);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .main {
+      display: grid;
+      gap: 26px;
+    }
+
+    @media (min-width: 840px) {
+      .main {
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+        gap: 32px;
+        align-items: center;
+      }
+    }
+
+    .headline {
+      font-size: 32px;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+
+    @media (min-width: 768px) {
+      .headline {
+        font-size: 40px;
+      }
+    }
+
+    .headline span.accent {
+      background: linear-gradient(120deg, #4ab2ff, #8f7bff);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .subcopy {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 22px;
+    }
+
+    .points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .pill {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 24, 55, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 11px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(74, 178, 255, 0.8);
+    }
+
+    .form-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .input-wrap {
+      flex: 1 1 180px;
+      min-width: 0;
+      position: relative;
+    }
+
+    .input-wrap input {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(3, 7, 20, 0.9);
+      color: var(--text-main);
+      font-size: 13px;
+      outline: none;
+      transition: border 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    }
+
+    .input-wrap input::placeholder {
+      color: rgba(154, 163, 198, 0.72);
+    }
+
+    .input-wrap input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(74, 178, 255, 0.4);
+      background: rgba(3, 9, 25, 0.96);
+    }
+
+    .primary-btn {
+      flex: 0 0 auto;
+      padding: 11px 20px;
+      border-radius: 999px;
+      border: none;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      background: linear-gradient(135deg, #4ab2ff, #8f7bff);
+      color: #050815;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 0 28px rgba(74, 178, 255, 0.5);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+    }
+
+    .primary-btn span.icon {
+      font-size: 14px;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 0 36px rgba(74, 178, 255, 0.65);
+    }
+
+    .primary-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 0 16px rgba(74, 178, 255, 0.45);
+    }
+
+    .small-note {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .preview-card {
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: radial-gradient(circle at top, rgba(74, 178, 255, 0.2), rgba(5, 9, 25, 0.98));
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.7);
+      padding: 18px 18px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .preview-badge {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(226, 232, 255, 0.85);
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(3, 9, 25, 0.8);
+    }
+
+    .preview-dot-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .dot.blue {
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(74, 178, 255, 0.9);
+    }
+
+    .preview-main-text {
+      font-size: 13px;
+      color: rgba(231, 235, 255, 0.96);
+      margin-bottom: 12px;
+    }
+
+    .preview-sub-text {
+      font-size: 11px;
+      color: rgba(180, 190, 230, 0.9);
+      margin-bottom: 14px;
+    }
+
+    .preview-tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 10px;
+    }
+
+    .preview-tag {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(6, 14, 40, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(193, 203, 245, 0.95);
+    }
+
+    .corner-glow {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(74, 178, 255, 0.55), transparent 70%);
+      bottom: -60px;
+      right: -40px;
+      opacity: 0.9;
+      filter: blur(2px);
+      pointer-events: none;
+    }
+
+    footer {
+      margin-top: 18px;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-orb"></div>
+  <div class="noise-overlay"></div>
+
+  <div class="page">
+    <div class="card">
+      <div class="top-row">
+        <div class="brand">
+          <div class="brand-mark">V</div>
+          <div>
+            <div class="brand-text-main">ValtoraAI</div>
+            <div class="brand-text-sub">Autonomous Cyber Defense</div>
+          </div>
+        </div>
+        <div class="tag-pill">Coming Soon</div>
+      </div>
+
+      <div class="main">
+        <div>
+          <h1 class="headline">
+            Security at <span class="accent">AI speed.</span>
+          </h1>
+          <p class="subcopy">
+            ValtoraAI is an autonomous cybersecurity co-pilot built to predict, prevent,
+            and explain cyber threats — giving SMEs enterprise-level defense without
+            enterprise-level complexity.
+          </p>
+
+          <div class="points">
+            <div class="pill"><span class="pill-dot"></span> AI-driven threat detection</div>
+            <div class="pill"><span class="pill-dot"></span> Explainable incident analysis</div>
+            <div class="pill"><span class="pill-dot"></span> Automated response suggestions</div>
+          </div>
+
+          <form class="form-area" action="#" method="post">
+            <div class="input-wrap">
+              <input type="email" name="email" placeholder="Enter your email to get notified" required />
+            </div>
+            <button class="primary-btn" type="submit">
+              Get early access <span class="icon">↗</span>
+            </button>
+          </form>
+          <div class="small-note">
+            No spam. Just launch updates and early access invites.
+          </div>
+        </div>
+
+        <div class="preview-card">
+          <div class="preview-header">
+            <div class="preview-badge">VALTORA AI SNAPSHOT</div>
+            <div class="preview-dot-row">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot blue"></div>
+            </div>
+          </div>
+          <div class="preview-main-text">
+            “Detected anomalous login behaviour from a new device. ValtoraAI has
+            correlated this with unusual network activity and recommends reviewing
+            access policies for this account.”
+          </div>
+          <div class="preview-sub-text">
+            This is a preview of how ValtoraAI will investigate, explain, and
+            prioritise threats like a human analyst — at machine speed.
+          </div>
+          <div class="preview-tag-row">
+            <span class="preview-tag">Real-time analysis</span>
+            <span class="preview-tag">MITRE ATT&CK</span>
+            <span class="preview-tag">AI Co-Pilot</span>
+            <span class="preview-tag">For SMEs</span>
+          </div>
+          <div class="corner-glow"></div>
+        </div>
+      </div>
+
+      <footer>
+        <span>© <span id="year"></span> ValtoraAI. All rights reserved.</span>
+        <span>Built in the UK · Cybersecurity & AI</span>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
